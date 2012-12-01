@@ -14,3 +14,19 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/Jerem
 
 !ENTRY org.eclipse.ui 2 2 2012-12-01 14:38:20.693
 !MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-12-01 15:05:46.156
+!MESSAGE 
+!STACK 1
+org.eclipse.core.internal.resources.ResourceException: Resource '/CustomView/res' does not exist.
+	at org.eclipse.core.internal.resources.Resource.checkExists(Resource.java:341)
+	at org.eclipse.core.internal.resources.Resource.checkAccessible(Resource.java:215)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:266)
+	at org.eclipse.core.internal.resources.Container.members(Container.java:249)
+	at com.android.ide.eclipse.adt.internal.sdk.Sdk$6.run(Sdk.java:1312)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SUBENTRY 1 org.eclipse.core.resources 4 368 2012-12-01 15:05:46.158
+!MESSAGE Resource '/CustomView/res' does not exist.
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-12-01 15:05:46.320
+!MESSAGE fileChanged: failed to find manifest package for project CustomView
