@@ -1,5 +1,8 @@
 package com.csewannabe;
 
-public class MainCanvasView {
+import android.view.SurfaceView;
+import android.view.View.OnClickListener;
+
+public class MainCanvasView extends SurfaceView implements OnClickListener{
 
 }
