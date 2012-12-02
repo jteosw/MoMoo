@@ -15,7 +15,7 @@ public class SelectionActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.selection_activity);
 		
-		Fragment mClassFragment = new ClassFragment();
+		ClassFragment mClassFragment = new ClassFragment();
 		
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_holder, mClassFragment).commit();
 	}

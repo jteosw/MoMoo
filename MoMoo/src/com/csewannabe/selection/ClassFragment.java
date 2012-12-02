@@ -7,6 +7,9 @@ import com.csewannabe.selection.*;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 public class ClassFragment extends ListFragment {
@@ -18,6 +21,13 @@ public class ClassFragment extends ListFragment {
 		//Sets up a custom ListAdapter 
 		setListAdapter(new CustomArrayAdapter<String>(getActivity(), R.layout.list_item_textview, DataCollector.classes));
 		
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		View finalView = inflater.inflate(R.layout.class_listfragment, null);
+		
+		return super.onCreateView(inflater, container, savedInstanceState);
 	}
 	
 	@Override
