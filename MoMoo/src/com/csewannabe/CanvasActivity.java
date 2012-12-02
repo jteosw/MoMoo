@@ -21,6 +21,10 @@ public class CanvasActivity extends Activity {
 	ImageButton submitButton;
 	EditText answerBox;
 	Bitmap picture;
+	public static final int clearButtonId = 1;
+	public static final int undoButtonId = 2;
+	public static final int submitButtonId = 3;
+	public static final int answerBoxId = 4;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +50,6 @@ public class CanvasActivity extends Activity {
 				new RelativeLayout.LayoutParams(100, 125);
 		// Creates clear button
 		clearButton.setImageResource(R.drawable.clear);
-		int clearButtonId = 1;
 		clearButton.setId(clearButtonId);
 		clearButton.setScaleType(ScaleType.FIT_CENTER);
 		clearParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -65,7 +68,6 @@ public class CanvasActivity extends Activity {
 		RelativeLayout.LayoutParams undoParams = 
 				new RelativeLayout.LayoutParams(100, 125);
 		undoButton.setImageResource(R.drawable.undo);
-		int undoButtonId = 2;
 		undoButton.setId(undoButtonId);
 		undoButton.setScaleType(ScaleType.FIT_CENTER);
 		undoParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -84,6 +86,8 @@ public class CanvasActivity extends Activity {
 		// Creates submit button
 		RelativeLayout.LayoutParams submitParams = 
 				new RelativeLayout.LayoutParams(100, 125);
+		
+		submitButton.setId(submitButtonId);
 		submitButton.setImageResource(R.drawable.send);
 		submitButton.setScaleType(ScaleType.FIT_CENTER);
 		submitParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -99,7 +103,14 @@ public class CanvasActivity extends Activity {
 			}
 		});
 		
+		// Creates answer box
+		RelativeLayout.LayoutParams answerBoxParams = 
+				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, 125);
 		
+		submitParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		submitParams.addRule(RelativeLayout.RIGHT_OF, submitButtonId);
+		canvasLayout.addView(answerBox, answerBoxParams);
+				
 		setContentView(canvasLayout, params);
 	}
 	
