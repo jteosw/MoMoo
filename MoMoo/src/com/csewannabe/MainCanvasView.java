@@ -117,7 +117,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 			final int historySize = event.getHistorySize();	
 			int numPointers = event.getPointerCount();
 
-			if (numPointers < 2) {
+			if (numPointers != 2) {
 				for (int h = 0; h < historySize; h++) {
 					for(int p = 0; p < event.getPointerCount(); p++) {
 						path.lineTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h)+newY);
@@ -128,7 +128,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 						path.moveTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h)+newY);
 				    }
 				}
-			} else 	if (numPointers > 1) {
+			} else 	if (numPointers ==2) {
 				Log.d("TOUCHED", "Am scrolling!");
                 float currY = event.getRawY();
                 float deltaY = -(currY - prevY);
@@ -181,12 +181,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 				drawingCanvas.drawBitmap(picture, src,dest, null);
 				drawingCanvas.drawBitmap(blankMap, blanksrc,blankdest, null);
 				drawingCanvas.drawBitmap(buffer,  bufsrc, bufdest, null);
-				for(float i = 0 ; i < 150; i++) {
-					painter.setColor(Color.LTGRAY);
-					drawingCanvas.drawCircle(680, 15+i*6, 4, painter);
-				}
-				painter.setColor(Color.BLACK);
-				drawingCanvas.drawCircle(680, 15+(int) ((double)newY * 18 / 23), 8, painter);
+				
 				
 				
 				sHolder.unlockCanvasAndPost(drawingCanvas);
