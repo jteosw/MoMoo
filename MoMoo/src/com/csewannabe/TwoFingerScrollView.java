@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
-//TEST commit
 
 public class TwoFingerScrollView extends View {
 	private Bitmap bmp;
