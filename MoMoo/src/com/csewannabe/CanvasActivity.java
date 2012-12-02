@@ -29,7 +29,7 @@ public class CanvasActivity extends Activity {
 		
 		MainCanvas = new MainCanvasView(this, picture);
 		clearButton = new Button(this);
-		editButton = new Button(this);
+		editButton = new Button(this)ac;
 		submitButton = new Button(this);
 		answerBox = new EditText(this);
 		

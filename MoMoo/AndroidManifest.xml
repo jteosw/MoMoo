@@ -26,6 +26,10 @@
             android:name="com.csewannabe.SelectionActivity"
             android:label="@string/title_activity_selection" >
         </activity>
+        <activity
+            android:name="com.csewannabe.CanvasActivity"
+            android:label="@string/title_activity_canvas" >
+        </activity>
     </application>
 
 </manifest>
