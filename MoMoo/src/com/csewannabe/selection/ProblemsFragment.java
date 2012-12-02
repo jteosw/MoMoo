@@ -22,6 +22,10 @@ public class ProblemsFragment extends ListFragment {
 	String nextProblem;
 	String prevProblem;
 	
+	public ProblemsFragment() {
+		super();
+	}
+	
 	public ProblemsFragment(String assignmentChosen) {
 		super();
 
@@ -52,11 +56,6 @@ public class ProblemsFragment extends ListFragment {
 		
 		intent.putExtra(CURR_DATA, selected);
 		intent.putExtra(CURR_ASSIGN, mAssignment);
-		if(position + 1 <= getListView().getLastVisiblePosition()) {
-			intent.putExtra(NEXT_DATA, (String) getListView().getItemAtPosition(position+1));
-		} else {
-			intent.putExtra(NEXT_DATA, (String) null);
-		}
 		
 		if (position >= 1) {
 			intent.putExtra(PREV_DATA, (String) getListView().getItemAtPosition(position-1));

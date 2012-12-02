@@ -88,6 +88,7 @@ public class SelectionActivity extends FragmentActivity implements AssignmentFra
 				case 1:
 					problemFragment = new ProblemsFragment(mChosenAssignment);
 					return problemFragment;
+					
 				default:
 					return null;
 			}

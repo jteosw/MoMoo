@@ -2,6 +2,9 @@ package com.csewannabe;
 
 
 
+import java.util.Random;
+
+import com.csewannabe.selection.DataCollector;
 import com.csewannabe.selection.ProblemsFragment;
 
 import android.app.Activity;
@@ -30,16 +33,26 @@ import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 public class CanvasActivity extends Activity {
+	
+	public static final String CURR_ASSIGN = "com.csewannabe.selection.CanvasActivity.assign";
+	public static final String PREV_DATA = "com.csewannabe.selection.CanvasActivity.prev";
+	public static final String CURR_DATA = "com.csewannabe.selection.CanvasActivity.curr";
+	
 	MainCanvasView MainCanvas;
 	ImageButton clearButton;
 	ImageButton undoButton;
 	ImageButton submitButton;
+	String mAssignment;
+	String currentProblem;
 	Button prevButton;
 	Button nextButton;
 	EditText answerBox;
 	Bitmap picture;
 	Intent intent;
 	TextView title;
+	DataCollector mDaraCollector = new DataCollector();
+	
+	boolean localSwitch = false;
 	
 	public static final int clearButtonId = 1;
 	public static final int undoButtonId = 2;
@@ -173,6 +186,10 @@ public class CanvasActivity extends Activity {
 			}
 		});
 		
+		//Determines current assignment and problem
+		mAssignment = intent.getStringExtra(ProblemsFragment.CURR_ASSIGN);
+		currentProblem = intent.getStringExtra(ProblemsFragment.CURR_DATA);
+		
 		// Creates prev Button
 		RelativeLayout.LayoutParams prevParams = 
 				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -184,11 +201,18 @@ public class CanvasActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-//				intent = getIntent();
-				// if PREV_DATA is null, doesn't exist, button shouldn't work
-//				String position = intent.getStringExtra(ProblemsFragment.PREV_DATA);
-//				startActivity(new Intent(CanvasActivity.this, );
+				Intent mIntent = new Intent(CanvasActivity.this, CanvasActivity.class);
+				
+				String prevData = intent.getStringExtra(ProblemsFragment.PREV_DATA);
+				
+				mIntent.putExtra(ProblemsFragment.CURR_DATA, prevData);
+				mIntent.putExtra(ProblemsFragment.PREV_DATA, currentProblem);
+				mIntent.putExtra(ProblemsFragment.CURR_ASSIGN, mAssignment);		
+				MainCanvas.pause();
+				
+				startActivity(mIntent);
+				finish();
+
 			}
 		});
 		
@@ -203,7 +227,24 @@ public class CanvasActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				Intent mIntent = new Intent(CanvasActivity.this, CanvasActivity.class);
+
+				String[] problems = mDaraCollector.getProblems(mAssignment);
+				Random rand = new Random();
+				int problemSize = problems.length;
 				
+				String selectedProblem = problems[rand.nextInt(problemSize)];
+				while(selectedProblem.equals(currentProblem)) {
+					selectedProblem = problems[rand.nextInt(problemSize)];
+				}
+
+				mIntent.putExtra(ProblemsFragment.CURR_DATA, selectedProblem);
+				mIntent.putExtra(ProblemsFragment.PREV_DATA, currentProblem);
+				mIntent.putExtra(ProblemsFragment.CURR_ASSIGN, mAssignment);		
+				MainCanvas.pause();
+				
+				startActivity(mIntent);
+				finish();
 				// TODO Auto-generated method stub
 //				startActivity(new Intent(CanvasActivity.this, MoMooStart.class));
 			}
@@ -215,7 +256,7 @@ public class CanvasActivity extends Activity {
 				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		titleParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 		titleParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
-		title.setText(intent.getStringExtra(ProblemsFragment.CURR_DATA));
+		title.setText(currentProblem);
 		title.setTextSize(30);
 		title.setTextColor(Color.DKGRAY);
 		canvasLayout.addView(title, titleParams);
