@@ -203,7 +203,7 @@ public class CanvasActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				title.setText(text)
+				
 				// TODO Auto-generated method stub
 //				startActivity(new Intent(CanvasActivity.this, MoMooStart.class));
 			}

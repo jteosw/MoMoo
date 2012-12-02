@@ -2,42 +2,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
     tools:context=".MoMooStart" >
 	
+    <ImageView android:id="@+id/logoImg"
+        android:src="@drawable/logo"
+         android:layout_width="250dp" android:layout_height="150dp"
+         android:layout_centerHorizontal="true" 
+        />
+    
     <TextView android:id="@+id/loginView"
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:text="@string/loginView" android:textSize="20sp"
-        android:layout_centerVertical="true" android:layout_marginLeft="75dp" />
+        android:layout_centerVertical="true" android:layout_marginLeft="40dp" />
     
     <EditText android:id="@+id/username"
-        android:layout_width="100dp" android:layout_height="30dp"
+        android:layout_width="140dp" android:layout_height="30dp"
         android:text="xxxxx" android:textSize="20sp"
         android:layout_toRightOf="@id/loginView"
         android:layout_alignTop="@id/loginView"/>
     
     <EditText android:id="@+id/password"
-        android:layout_width="100dp" android:layout_height="30dp"
+        android:layout_width="140dp" android:layout_height="30dp"
         android:text="*****" android:textSize="20sp"
         android:layout_toRightOf="@id/loginView"
         android:layout_alignBottom="@id/loginView"/>
     
-    <Button
+    <ImageButton
+        android:src="@drawable/login"
         android:id="@+id/startAssignmentActivity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/loginView"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
+        android:scaleType="fitXY"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
         android:layout_alignLeft="@id/loginView"
-        android:text="LOGIN"
         android:onClick="startAssignment"
          />
     
-    <Button
+    <ImageButton
+        android:src="@drawable/signup"
         android:id="@+id/openCanvas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/startAssignmentActivity"
-        android:layout_alignLeft="@id/startAssignmentActivity"
-        android:text="Forgot Password?"
+        android:layout_width="100dp"
+        android:layout_height="90dp"
+        android:scaleType="fitXY"
+        android:layout_marginBottom="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@id/password"
         android:onClick="openCanvas"        />
 
 </RelativeLayout>
