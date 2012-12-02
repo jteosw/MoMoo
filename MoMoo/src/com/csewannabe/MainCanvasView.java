@@ -94,14 +94,14 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	
 	public void clear() {
 		blankMap = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
-		blanksrc = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
-		blankdest = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
+		//blanksrc = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
+		//blankdest = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
 		bmCanvas = new Canvas(blankMap);
 		
 		
 		buffer = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
-		bufsrc = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
-		bufdest = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
+		//bufsrc = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
+		//bufdest = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
 		bufCanvas = new Canvas(buffer);
 		path = new Path();
 		
