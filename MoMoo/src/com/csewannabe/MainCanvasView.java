@@ -27,7 +27,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	
 	public MainCanvasView(Context context, Bitmap picture) {
 		super(context);
-		picture = this.picture;
+		this.picture = picture;
 		sHolder = getHolder();
 		painter = new Paint(Paint.ANTI_ALIAS_FLAG);
 		painter.setColor(Color.BLACK);
@@ -35,7 +35,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		picDimensions = new int[] {picture.getHeight(), picture.getWidth()};
 		
 		src = new Rect(0,0,picDimensions[0],picDimensions[1]);
-		dest = new Rect(0,0,picDimensions[0],picDimensions[1]);
+		dest = new Rect(100,100,picDimensions[0]*2+100,picDimensions[1]*2+100);
 		blankMap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
 		bmCanvas = new Canvas(blankMap);
 	}
@@ -71,6 +71,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		while(isRunning) {
 			if(sHolder.getSurface().isValid()) {
 				Canvas drawingCanvas = sHolder.lockCanvas();
+				drawingCanvas.drawARGB(255, 255, 255, 255);
 				drawingCanvas.drawBitmap(picture, src,dest, null);
 				drawingCanvas.drawBitmap(blankMap, 0,0, null);
 				
