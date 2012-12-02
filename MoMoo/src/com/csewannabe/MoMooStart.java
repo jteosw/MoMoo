@@ -18,4 +18,8 @@ public class MoMooStart extends Activity {
     public void startAssignmentActivity(View view) {
     	startActivity(new Intent(this, SelectionActivity.class));
     }
+    
+    public void openCanvas(View view) {
+    	startActivity(new Intent(this, CanvasActivity.class));
+    }
 }

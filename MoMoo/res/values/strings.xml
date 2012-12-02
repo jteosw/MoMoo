@@ -6,5 +6,6 @@
     <string name="menu_settings">Settings</string>
     <string name="title_activity_selection">SelectionActivity</string>
     <string name="title_activity_canvas">CanvasActivity</string>
+    <string name="openCanvas">Open Canvas</string>
 
 </resources>

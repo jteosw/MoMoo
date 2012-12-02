@@ -31,7 +31,7 @@ public class CanvasActivity extends Activity {
 		
 		RelativeLayout canvasLayout = new RelativeLayout(this);
 		RelativeLayout.LayoutParams params = 
-				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
 		
 		// Find views
 		picture = BitmapFactory.decodeResource(getResources(), R.drawable.list_background);
@@ -42,6 +42,10 @@ public class CanvasActivity extends Activity {
 		submitButton = new ImageButton(this);
 		answerBox = new EditText(this);
 		
+		// Add Main Canvas
+		canvasLayout.addView(MainCanvas, params);
+		params = 
+				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		// Creates clear button
 		clearButton.setImageDrawable(Drawable.createFromPath("R.drawable.clear.png"));
 		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
@@ -51,7 +55,7 @@ public class CanvasActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				Toast.makeText(CanvasActivity.this, "HIHIHI", Toast.LENGTH_SHORT).show();
+				MainCanvas.clear();
 			}
 		});
 		

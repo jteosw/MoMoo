@@ -5,6 +5,7 @@
     tools:context=".MoMooStart" >
 
     <Button
+        android:id="@+id/startAssignmentActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -12,5 +13,14 @@
         android:text="Select Assignments..."
         android:onClick="startAssignmentActivity"
          />
+    
+    <Button
+        android:id="@+id/openCanvas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/startAssignmentActivity"
+        android:layout_alignLeft="@id/startAssignmentActivity"
+        android:text="@string/openCanvas"
+        android:onClick="openCanvas"        />
 
 </RelativeLayout>
