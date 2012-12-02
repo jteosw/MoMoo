@@ -1,8 +1,11 @@
 package com.csewannabe;
 
-import android.os.Bundle;
+import com.csewannabe.selection.SelectionActivity;
+
 import android.app.Activity;
-import android.view.Menu;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
 
 public class MoMooStart extends Activity {
 
@@ -11,12 +14,8 @@ public class MoMooStart extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.momoo_start);
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.momoo_start, menu);
-        return true;
+   
+    public void startAssignmentActivity(View view) {
+    	startActivity(new Intent(this, SelectionActivity.class));
     }
-    
 }

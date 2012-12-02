@@ -74,11 +74,11 @@ public class SelectionActivity extends FragmentActivity {
 		public Fragment getItem(int position) {
 			switch(position) {
 				case 0:
-					return new ClassFragment();
+					return new AssignmentFragment();
 				case 1:
-					return new ClassFragment();
+					return new AssignmentFragment();
 				case 2:
-					return new ClassFragment();
+					return new AssignmentFragment();
 				default:
 					return null;
 			}
