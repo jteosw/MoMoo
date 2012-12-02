@@ -37,7 +37,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	private Rect blankdest;
 	private Rect bufsrc;
 	private Rect bufdest;
-	private int picScale;
+	private float picScale;
 	private int[] picCoords;
 	private boolean undo;
 	
@@ -55,11 +55,11 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		painter.setStrokeWidth(2);
 		setOnTouchListener(this);
 		
-		picScale = 1;
-		picCoords = new int[] {0,0};
+		picScale = (float)0.5;
+		picCoords = new int[] {0,150};
 		src = new Rect(0,0,picture.getWidth(),picture.getHeight());			//default size of pic
-		dest = new Rect(picCoords[0],picCoords[1], picture.getWidth() * picScale + picCoords[0],
-							picture.getHeight() * picScale + picCoords[1]); //choose the location, left.top.right.btm
+		dest = new Rect(picCoords[0],picCoords[1], (int)(picture.getWidth() * picScale + picCoords[0]),
+							(int)(picture.getHeight() * picScale + picCoords[1])); //choose the location, left.top.right.btm
 		
 		
 		blankMap = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
@@ -133,15 +133,15 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
                 float currY = event.getRawY();
                 float deltaY = -(currY - prevY);
                 newY += deltaY;
-                if (newY < 0) {
-                	newY = 0;
+                if (newY < -100) {
+                	newY = -100;
                 	Toast.makeText(getContext(), "Reached End", Toast.LENGTH_SHORT).show();
                 }
                 if (newY > 1150) {
                 	newY = 1150;
                 	Toast.makeText(getContext(), "Reached End", Toast.LENGTH_SHORT).show();
                 }
-                dest.set(picCoords[0], picCoords[1]-newY, picCoords[0]+picture.getWidth() * picScale, picCoords[1]-newY + picture.getHeight() * picScale);
+                dest.set(picCoords[0], picCoords[1]-newY, (int)(picCoords[0]+picture.getWidth() * picScale), (int)(picCoords[1]-newY + picture.getHeight() * picScale));
                 blankdest.set(0,0-newY, blankMap.getWidth(), blankMap.getHeight() - newY);
                 bufdest.set(0,0-newY, buffer.getWidth(), buffer.getHeight() -  newY);
                 prevY = currY;
@@ -177,7 +177,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		while(isRunning) {
 			if(sHolder.getSurface().isValid()) {
 				Canvas drawingCanvas = sHolder.lockCanvas();
-				drawingCanvas.drawARGB(255, 180, 99, 36);
+				drawingCanvas.drawARGB(255, 255, 255, 255);
 				drawingCanvas.drawBitmap(picture, src,dest, null);
 				drawingCanvas.drawBitmap(blankMap, blanksrc,blankdest, null);
 				drawingCanvas.drawBitmap(buffer,  bufsrc, bufdest, null);
