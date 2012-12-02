@@ -76,9 +76,7 @@ public class SelectionActivity extends FragmentActivity {
 				case 0:
 					return new AssignmentFragment();
 				case 1:
-					return new AssignmentFragment();
-				case 2:
-					return new AssignmentFragment();
+					return new ProblemsFragment();
 				default:
 					return null;
 			}
