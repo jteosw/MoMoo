@@ -17,7 +17,7 @@ public class SelectionActivity extends FragmentActivity {
 		
 		Fragment mClassFragment = new ClassFragment();
 		
-		getSupportFragmentManager().beginTransaction().add(R.layout.selection_activity, mClassFragment);
+		getSupportFragmentManager().beginTransaction().add(R.id.fragment_holder, mClassFragment).commit();
 	}
 
 
