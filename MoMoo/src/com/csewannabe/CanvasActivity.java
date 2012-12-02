@@ -6,13 +6,14 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 
 public class CanvasActivity extends Activity {
 	MainCanvasView MainCanvas;
-	Button clearButton;
-	Button editButton;
-	Button submitButton;
+	ImageButton clearButton;
+	ImageButton editButton;
+	ImageButton submitButton;
 	EditText answerBox;
 	Bitmap picture;
 
@@ -28,11 +29,12 @@ public class CanvasActivity extends Activity {
 		picture = BitmapFactory.decodeResource(getResources(), R.drawable.list_background);
 		
 		MainCanvas = new MainCanvasView(this, picture);
-		clearButton = new Button(this);
-		editButton = new Button(this)ac;
-		submitButton = new Button(this);
+		clearButton = new ImageButton(this);
+		editButton = new ImageButton(this);
+		submitButton = new ImageButton(this);
 		answerBox = new EditText(this);
 		
+		clearButton.setBackground(background);
 		
 		setContentView(R.layout.);
 	}
