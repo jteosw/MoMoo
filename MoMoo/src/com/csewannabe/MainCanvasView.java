@@ -54,7 +54,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		painter.setStrokeWidth(2);
 		setOnTouchListener(this);
 		
-		picScale = 5;
+		picScale = 1;
 		picCoords = new int[] {0,0};
 		src = new Rect(0,0,picture.getWidth(),picture.getHeight());			//default size of pic
 		dest = new Rect(picCoords[0],picCoords[1], picture.getWidth() * picScale + picCoords[0],
@@ -93,10 +93,17 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	}
 	
 	public void clear() {
-		blankMap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
+		blankMap = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
+		blanksrc = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
+		blankdest = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
 		bmCanvas = new Canvas(blankMap);
-		buffer = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
+		
+		
+		buffer = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
+		bufsrc = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
+		bufdest = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
 		bufCanvas = new Canvas(buffer);
+		path = new Path();
 		
 	}
 
