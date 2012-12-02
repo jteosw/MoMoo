@@ -2,19 +2,25 @@ package com.csewannabe;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
+import android.app.ListFragment;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
-import com.csewannabe.R;
 import com.csewannabe.selection.AssignmentFragment;
 import com.csewannabe.selection.ProblemsFragment;
 
-public class SelectionActivity extends FragmentActivity {
+public class SelectionActivity extends FragmentActivity implements AssignmentFragment.AssignmentSelectable{
 	
+	String mChosenAssignment;
+	SelectionPagerAdapter mSelectionAdapter;
+	ViewPager mViewer;
+	ProblemsFragment problemFragment;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +61,8 @@ public class SelectionActivity extends FragmentActivity {
 		mActionbar.addTab(assignmentTab);
 		mActionbar.addTab(questionTab);
 		
-		SelectionPagerAdapter mSelectionAdapter = new SelectionPagerAdapter(getSupportFragmentManager());
-		ViewPager mViewer = (ViewPager) findViewById(R.id.selection_pager);
+		mSelectionAdapter = new SelectionPagerAdapter(getSupportFragmentManager());
+		mViewer = (ViewPager) findViewById(R.id.selection_pager);
 		mViewer.setAdapter(mSelectionAdapter);
 		
 		/*
@@ -66,8 +72,10 @@ public class SelectionActivity extends FragmentActivity {
 	*/
 	}
 	
-	public static class SelectionPagerAdapter extends FragmentPagerAdapter {
-
+	public class SelectionPagerAdapter extends FragmentStatePagerAdapter {
+		
+		int currCount = 1;
+		
 		public SelectionPagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
@@ -78,7 +86,8 @@ public class SelectionActivity extends FragmentActivity {
 				case 0:
 					return new AssignmentFragment();
 				case 1:
-					return new ProblemsFragment();
+					problemFragment = new ProblemsFragment(mChosenAssignment);
+					return problemFragment;
 				default:
 					return null;
 			}
@@ -86,9 +95,22 @@ public class SelectionActivity extends FragmentActivity {
 
 		@Override
 		public int getCount() {
-			return 2;
+			return currCount;
 		}
 		
+	}
+
+	@Override
+	public void selectAssignment(String assignment) {
+		mChosenAssignment = assignment;
+		mSelectionAdapter.currCount = 2;
+		if(problemFragment != null) {
+			problemFragment.linkAdapter(assignment); 
+		}
+
+		//mSelectionAdapter = new SelectionPagerAdapter(getSupportFragmentManager());
+		//mViewer.setAdapter(mSelectionAdapter);
+
 	}
 
 }
