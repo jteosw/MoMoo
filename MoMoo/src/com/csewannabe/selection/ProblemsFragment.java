@@ -41,7 +41,7 @@ public class ProblemsFragment extends ListFragment {
 	}
 	
 	public void linkAdapter(String assignment) {
-		setListAdapter(new CustomArrayAdapter<String>(getActivity(), R.layout.list_item, R.id.list_item_textview, mData.getProblems(assignment)));
+		setListAdapter(new ProblemArrayAdapter<String>(getActivity(), R.layout.problem_list_item, R.id.list_item_textview, mData.getProblems(assignment)));
 
 	}
 }

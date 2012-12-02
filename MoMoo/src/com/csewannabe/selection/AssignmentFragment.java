@@ -31,7 +31,7 @@ public class AssignmentFragment extends ListFragment {
 		parentViewer = (ViewPager) getActivity().findViewById(R.id.selection_pager);
 		DataCollector mData = new DataCollector();
 		//Sets up a custom ListAdapter 
-		setListAdapter(new CustomArrayAdapter<String>(getActivity(), R.layout.list_item, R.id.list_item_textview, mData.getAssignments()));
+		setListAdapter(new AssignmentArrayAdapter<String>(getActivity(), R.layout.assignment_list_item, R.id.list_item_textview, mData.getAssignments()));
 		
 	}
 	

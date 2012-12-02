@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content">
+    	
+	<TextView 
+	    android:id="@+id/list_item_textview"
+
+	    android:paddingLeft="13dp"
+	    
+		android:textSize="27sp"
+	    android:gravity="center_vertical"
+		android:layout_alignParentLeft="true"
+		android:layout_alignLeft="@+id/list_item_class_completion"
+		android:layout_width="wrap_content"
+	    android:layout_height="60dp" 
+		android:background="@drawable/list_backgroundhalf"
+	    />
+	
+	<com.csewannabe.selection.ScoreView
+	    android:id="@id/list_item_class_completion"
+	    android:layout_width="60dp"
+	    android:layout_height="60dp"
+	    android:layout_alignParentRight="true"
+	    android:layout_centerVertical="true"
+	    />
+</RelativeLayout>

@@ -21,24 +21,30 @@ import android.widget.TextView;
 
 
 
-public class CustomArrayAdapter<T> extends ArrayAdapter<T> implements ListAdapter{
+public class AssignmentArrayAdapter<T> extends ArrayAdapter<T> implements ListAdapter{
 	
 	Typeface mTypeface;
 	
-	public CustomArrayAdapter(Context context, int textViewResourceId, T[] objects) {
+	public AssignmentArrayAdapter(Context context, int textViewResourceId, T[] objects) {
 		super(context, textViewResourceId, objects);
 		mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/quicksand.ttf");
 	}
 	
-	public CustomArrayAdapter(Context context, int resource, int textViewResourceId, T[] objects) {
+	public AssignmentArrayAdapter(Context context, int resource, int textViewResourceId, T[] objects) {
 		super(context, resource, textViewResourceId, objects);
 		mTypeface = Typeface.createFromAsset(context.getAssets(), "fonts/quicksand.ttf");
 	}
 	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		DataCollector myData = new DataCollector();
+		String[] myAssignments = myData.getAssignments();
+		Integer[] scoreArray = myData.getScore(myAssignments[position]);
+		int score = scoreArray[0];
+		int total = scoreArray[1];
 		View view =  super.getView(position, convertView, parent);
 		((TextView) view.findViewById(R.id.list_item_textview)).setTypeface(mTypeface);
+		((ScoreView) view.findViewById(R.id.list_item_class_completion)).setScore(score, total);
 		return view;
 	}
 	

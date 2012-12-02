@@ -9,12 +9,14 @@ public class DataCollector {
 
 
 		Map<String, List<String>> homeworkDataset;
-	
+		Map<String, Integer[]> scoreMap;
+		
 		public String[] assignments  = {"assignment 1A", "assignment 1B", "assignment 2", "assignment 3", "bonus AX"};
 		public String[] problems = {"problem 1", "problem 2", "problem 3", "problem 4", "problem 5", "problem 6", "problem 7"};
 	
 		public DataCollector() {
 			homeworkDataset = new TreeMap<String, List<String>>();
+			scoreMap = new TreeMap<String, Integer[]>();
 			add("assignment 1A", "problem 1");
 			add("assignment 1A", "problem 2");
 			add("assignment 1A", "problem 3");
@@ -44,6 +46,12 @@ public class DataCollector {
 			add("assignment 3", "problem 10");
 			add("bonus 1", "problem 1");
 			add("bonus 2", "problem 2");
+			addScore("assignment 1A", 9, 9);
+			addScore("assignment 2", 3, 9);
+			addScore("assignment 2B", 5, 8);
+			addScore("assignment 3", 5, 9);
+			addScore("bonus 1", 1, 1);
+			addScore("bonus 2", 0, 1);
 		}
 		
 		public void add(String assignment, String problem) {
@@ -51,6 +59,19 @@ public class DataCollector {
 				homeworkDataset.put(assignment, new LinkedList<String>());
 			}
 			homeworkDataset.get(assignment).add(problem);
+		}
+		
+		public void addScore(String assignment, int score, int total) {
+			Integer[] myScore = new Integer[2];
+			myScore[0] = score;
+			myScore[1] = total;
+			
+				scoreMap.put(assignment, myScore);
+	
+		}
+		
+		public Integer[] getScore(String assignment) {
+			return scoreMap.get(assignment);
 		}
 		
 		public String[] getAssignments() {
