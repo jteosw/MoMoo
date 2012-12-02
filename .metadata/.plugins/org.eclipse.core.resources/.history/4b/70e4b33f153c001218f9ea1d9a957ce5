@@ -1,0 +1,63 @@
+package com.example.customview;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+public class CustomView extends Activity {
+	
+	SurfacePanelTest SPT;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        
+        SPT = new SurfacePanelTest(this);
+        
+//        RelativeLayout root = new RelativeLayout(this);
+//        Button butt = new Button(this);
+//        butt.setText("CLICK ME!!!");
+//        butt.setOnClickListener(new OnClickListener() {
+//
+//			public void onClick(View v) {
+//				Toast.makeText(CustomView.this, "HIHIHIHI", Toast.LENGTH_SHORT).show();
+//				
+//				
+//			}
+//        });
+//        
+//        	
+//       
+//        RelativeLayout.LayoutParams hi = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+//        root.addView(butt);
+        setContentView(SPT);
+        
+    }
+    
+    @Override
+    protected void onPause() {
+    	super.onPause();
+    	SPT.pause();
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	SPT.resume();
+    };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_custom_view, menu);
+        return true;
+    }
+    
+    
+}
+
+

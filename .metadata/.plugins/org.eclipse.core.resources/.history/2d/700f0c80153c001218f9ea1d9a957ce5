@@ -1,0 +1,61 @@
+package com.example.customview;
+
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.view.Menu;
+
+public class CustomView extends Activity {
+	
+	MainCanvasView SPT;
+	private Bitmap picture;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        picture = BitmapFactory.decodeResource(getResources(), R.drawable.minimikuhdpi);
+        MCV = new MainCanvasView(this, picture);
+        
+//        RelativeLayout root = new RelativeLayout(this);
+//        Button butt = new Button(this);
+//        butt.setText("CLICK ME!!!");
+//        butt.setOnClickListener(new OnClickListener() {
+//
+//			public void onClick(View v) {
+//				Toast.makeText(CustomView.this, "HIHIHIHI", Toast.LENGTH_SHORT).show();
+//				
+//				
+//			}
+//        });
+//        
+//        	
+//       
+//        RelativeLayout.LayoutParams hi = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+//        root.addView(butt);
+        setContentView(MCV);
+        
+    }
+    
+    @Override
+    protected void onPause() {
+    	super.onPause();
+    	MCV.pause();
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    	MCV.resume();
+    };
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_custom_view, menu);
+        return true;
+    }
+    
+    
+}
+
+
