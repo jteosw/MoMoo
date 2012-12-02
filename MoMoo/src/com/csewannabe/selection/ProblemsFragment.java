@@ -1,25 +1,21 @@
 package com.csewannabe.selection;
 
 import com.csewannabe.R;
-import com.csewannabe.R.layout;
-import com.csewannabe.selection.*;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 
-public class AssignmentFragment extends ListFragment {
+public class ProblemsFragment extends ListFragment {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
 		//Sets up a custom ListAdapter 
-		setListAdapter(new CustomArrayAdapter<String>(getActivity(), R.layout.list_item, R.id.list_item_textview, DataCollector.assignments));
+		setListAdapter(new CustomArrayAdapter<String>(getActivity(), R.layout.list_item, R.id.list_item_textview, DataCollector.problems));
 		
 	}
 	
