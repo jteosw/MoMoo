@@ -14,6 +14,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.widget.Toast;
 
 public class MainCanvasView extends SurfaceView implements OnTouchListener, Runnable {
 
@@ -56,11 +57,15 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		
 		src = new Rect(0,0,picture.getWidth(),picture.getHeight());			//default size of pic
 		dest = new Rect(100,100, picture.getWidth() * 2 + 100, picture.getHeight() * 2 + 100); //choose the location, left.top.right.btm
-		blankMap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
+		
+		
+		blankMap = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
 		blanksrc = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
 		blankdest = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
 		bmCanvas = new Canvas(blankMap);
-		buffer = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
+		
+		
+		buffer = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
 		bufsrc = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
 		bufdest = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
 		bufCanvas = new Canvas(buffer);
@@ -103,37 +108,39 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 			if (numPointers < 2) {
 				for (int h = 0; h < historySize; h++) {
 					for(int p = 0; p < event.getPointerCount(); p++) {
-						path.lineTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h));
+						path.lineTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h)+newY);
 						//bmCanvas.drawCircle(event.getHistoricalX(p, h), event.getHistoricalY(p, h), 3,painter);
-						path.offset(0, newY);
 						bufCanvas.drawPath(path, painter);
 						
-						path.moveTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h));
+						path.moveTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h)+newY);
 				    }
 				}
 			} else 	if (numPointers > 1) {
 				Log.d("TOUCHED", "Am scrolling!");
-                float currX = event.getRawX();
-                float deltaX = -(currX - prevX);
-                newX += deltaX;
                 float currY = event.getRawY();
                 float deltaY = -(currY - prevY);
                 newY += deltaY;
+                if (newY < 0) {
+                	newY = 0;
+                	Toast.makeText(getContext(), "Reached End", Toast.LENGTH_SHORT).show();
+                }
+                if (newY > 1500) {
+                	newY = 1500;
+                	Toast.makeText(getContext(), "Reached End", Toast.LENGTH_SHORT).show();
+                }
                 dest.set(100, 100-newY, 100+picture.getWidth() * 2, 100-newY + picture.getHeight() * 2);
-                blankdest.set(0,0-newY, blankMap.getWidth(), blankMap.getWidth() - newY);
-                bufdest.set(0,0-newY, buffer.getWidth(), buffer.getWidth() - newY);
-                prevX = currX;
+                blankdest.set(0,0-newY, blankMap.getWidth(), blankMap.getHeight() - newY);
+                bufdest.set(0,0-newY, buffer.getWidth(), buffer.getHeight() -  newY);
                 prevY = currY;
 			}
 			
 			break;
-			
 		
 		case MotionEvent.ACTION_DOWN: 
 			//bmCanvas.drawCircle(event.getX(), event.getY(), 3,painter);
 			bmCanvas.drawPath(path, painter);
 				path = new Path();
-				path.moveTo(event.getX(), event.getY());
+				path.moveTo(event.getX(), event.getY()+newY);
 			//Sets the start scroll point
 				
 				prevX = event.getRawX();
