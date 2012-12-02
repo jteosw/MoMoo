@@ -40,6 +40,10 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	private float picScale;
 	private int[] picCoords;
 	private boolean undo;
+	private Bitmap blackMap;
+	private Rect blksrc;
+	private Rect blkdest;
+	private Canvas blackCanvas;
 	
 	public MainCanvasView(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
@@ -62,18 +66,24 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 							(int)(picture.getHeight() * picScale + picCoords[1])); //choose the location, left.top.right.btm
 		
 		
-		blankMap = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
+		blankMap = Bitmap.createBitmap(1000, 2076, Bitmap.Config.ARGB_8888);
 		blanksrc = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
 		blankdest = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
 		bmCanvas = new Canvas(blankMap);
 		
 		
-		buffer = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
+		buffer = Bitmap.createBitmap(1000, 2076, Bitmap.Config.ARGB_8888);
 		bufsrc = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
 		bufdest = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
 		bufCanvas = new Canvas(buffer);
 		path = new Path();
-	}
+		
+		blackMap = Bitmap.createBitmap(1000, 300, Bitmap.Config.ARGB_8888);
+		blksrc = new Rect(0,0,blackMap.getWidth(), blackMap.getHeight());
+		blkdest = new Rect(0,2076,blackMap.getWidth(), 2076+blackMap.getHeight());	
+		blackCanvas = new Canvas(blackMap);
+		blackCanvas.drawARGB(255, 10, 10, 10);
+		}
 	
 	public void resume() {
 		mThread = new Thread(this);
@@ -91,18 +101,18 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	
 	public void undo() {
 		path = new Path();
-		buffer = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
+		buffer = Bitmap.createBitmap(1000, 2076, Bitmap.Config.ARGB_8888);
 		bufCanvas = new Canvas(buffer);
 	}
 	
 	public void clear() {
-		blankMap = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
+		blankMap = Bitmap.createBitmap(1000, 2076, Bitmap.Config.ARGB_8888);
 		//blanksrc = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
 		//blankdest = new Rect(0,0,blankMap.getWidth(), blankMap.getHeight());
 		bmCanvas = new Canvas(blankMap);
 		
 		
-		buffer = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
+		buffer = Bitmap.createBitmap(1000, 2076, Bitmap.Config.ARGB_8888);
 		//bufsrc = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
 		//bufdest = new Rect(0,0,buffer.getWidth(), buffer.getHeight());
 		bufCanvas = new Canvas(buffer);
@@ -144,6 +154,8 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
                 dest.set(picCoords[0], picCoords[1]-newY, (int)(picCoords[0]+picture.getWidth() * picScale), (int)(picCoords[1]-newY + picture.getHeight() * picScale));
                 blankdest.set(0,0-newY, blankMap.getWidth(), blankMap.getHeight() - newY);
                 bufdest.set(0,0-newY, buffer.getWidth(), buffer.getHeight() -  newY);
+        		blkdest.set(0,2076-newY,blackMap.getWidth(), 2076+blackMap.getHeight()-newY);	
+
                 prevY = currY;
 			}
 			
@@ -178,6 +190,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 			if(sHolder.getSurface().isValid()) {
 				Canvas drawingCanvas = sHolder.lockCanvas();
 				drawingCanvas.drawARGB(255, 255, 255, 255);
+				drawingCanvas.drawBitmap(blackMap,blksrc, blkdest, null);
 				drawingCanvas.drawBitmap(picture, src,dest, null);
 				drawingCanvas.drawBitmap(blankMap, blanksrc,blankdest, null);
 				drawingCanvas.drawBitmap(buffer,  bufsrc, bufdest, null);
