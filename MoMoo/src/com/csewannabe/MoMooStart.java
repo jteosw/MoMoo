@@ -21,4 +21,6 @@ public class MoMooStart extends Activity {
     public void openCanvas(View view) {
     	startActivity(new Intent(this, CanvasActivity.class));
     }
+    
+    
 }

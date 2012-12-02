@@ -3,14 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MoMooStart" >
-
+	
+    <TextView android:id="@+id/loginView"
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="@string/loginView" android:textSize="20sp"
+        android:layout_centerVertical="true" android:layout_marginLeft="75dp" />
+    
+    <EditText android:id="@+id/username"
+        android:layout_width="100dp" android:layout_height="30dp"
+        android:text="xxxxx" android:textSize="20sp"
+        android:layout_toRightOf="@id/loginView"
+        android:layout_alignTop="@id/loginView"/>
+    
+    <EditText android:id="@+id/password"
+        android:layout_width="100dp" android:layout_height="30dp"
+        android:text="*****" android:textSize="20sp"
+        android:layout_toRightOf="@id/loginView"
+        android:layout_alignBottom="@id/loginView"/>
+    
     <Button
         android:id="@+id/startAssignmentActivity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="Select Assignments..."
+        android:layout_below="@id/loginView"
+        android:layout_alignLeft="@id/loginView"
+        android:text="LOGIN"
         android:onClick="startAssignment"
          />
     
@@ -18,9 +35,9 @@
         android:id="@+id/openCanvas"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/startAssignmentActivity"
+        android:layout_below="@id/startAssignmentActivity"
         android:layout_alignLeft="@id/startAssignmentActivity"
-        android:text="@string/openCanvas"
+        android:text="Forgot Password?"
         android:onClick="openCanvas"        />
 
 </RelativeLayout>
