@@ -21,7 +21,7 @@ public class SelectionActivity extends FragmentActivity {
 		
 		//Set up action bar tab navigation
 		final ActionBar mActionbar = getActionBar();
-		mActionbar.setDisplayHomeAsUpEnabled(false);
+		mActionbar.setDisplayShowHomeEnabled(false);
 		mActionbar.setDisplayShowTitleEnabled(false);
 		mActionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
