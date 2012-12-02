@@ -26,6 +26,8 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	private boolean isRunning;
 	private Bitmap blankMap;
 	private Path path;
+	private Bitmap buffer;
+	private Canvas bufCanvas;
 	
 	public MainCanvasView(Context context, Bitmap picture) {
 		super(context);
@@ -38,10 +40,12 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		setOnTouchListener(this);
 		picDimensions = new int[] {picture.getHeight(), picture.getWidth()};
 		
-		src = new Rect(0,0,picDimensions[0],picDimensions[1]);
-		dest = new Rect(100,100,picDimensions[0]*2+100,picDimensions[1]*2+100);
+		src = new Rect(0,0,picDimensions[0],picDimensions[1]);			//default size of pic
+		dest = new Rect(100,100,picDimensions[0]*2+100,picDimensions[1]*2+100); //choose the location, left.top.right.btm
 		blankMap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
 		bmCanvas = new Canvas(blankMap);
+		buffer = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
+		bufCanvas = new Canvas(buffer);
 		path = new Path();
 	}
 	
@@ -58,22 +62,34 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 			mThread.join();
 		} catch (InterruptedException e) {}
 	}
+	
+	public void undo() {
+		path =  new Path();
+	}
+	
+	public void clear() {
+		blankMap = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
+		bmCanvas = new Canvas(blankMap);
+		buffer = Bitmap.createBitmap(1000, 1000, Bitmap.Config.ARGB_8888);
+		bufCanvas = new Canvas(buffer);
+		
+	}
 
 	public boolean onTouch(View v, MotionEvent event) {
 		if(event.getAction() == MotionEvent.ACTION_DOWN) {
 			//bmCanvas.drawCircle(event.getX(), event.getY(), 3,painter);
+			bmCanvas.drawPath(path, painter);
+			path = new Path();
 			path.moveTo(event.getX(), event.getY());
 			
-		}
-		else if (event.getAction() == MotionEvent.ACTION_MOVE) {
+		} else if (event.getAction() == MotionEvent.ACTION_MOVE) {
 		
 			final int historySize = event.getHistorySize();			
 			for (int h = 0; h < historySize; h++) {
 				for(int p = 0; p < event.getPointerCount(); p++) {
 					path.lineTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h));
 					//bmCanvas.drawCircle(event.getHistoricalX(p, h), event.getHistoricalY(p, h), 3,painter);
-					bmCanvas.drawPath(path, painter);
-					path = new Path();
+					bufCanvas.drawPath(path, painter);
 					path.moveTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h));
 				}
 			}
@@ -89,6 +105,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 				drawingCanvas.drawARGB(255, 255, 255, 255);
 				drawingCanvas.drawBitmap(picture, src,dest, null);
 				drawingCanvas.drawBitmap(blankMap, 0,0, null);
+				drawingCanvas.drawBitmap(buffer,  0, 0, null);
 				
 				
 				sHolder.unlockCanvasAndPost(drawingCanvas);
