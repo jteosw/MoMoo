@@ -61,7 +61,7 @@ public class CanvasActivity extends Activity {
 		});
 		
 		// Creates undo button
-		undoButton.setImage
+		
 		
 		
 		setContentView(canvasLayout, params);
