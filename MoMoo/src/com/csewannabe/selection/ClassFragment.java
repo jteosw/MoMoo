@@ -27,7 +27,7 @@ public class ClassFragment extends ListFragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View finalView = inflater.inflate(R.layout.class_listfragment, null);
 		
-		return super.onCreateView(inflater, container, savedInstanceState);
+		return finalView;
 	}
 	
 	@Override
