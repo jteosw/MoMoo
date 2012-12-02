@@ -69,7 +69,7 @@ public class CanvasActivity extends Activity {
 		
 		
 		// Find views
-		picture = BitmapFactory.decodeResource(getResources(), R.drawable.list_background);
+		picture = BitmapFactory.decodeResource(getResources(), R.drawable.mathproblem2skew);
 		
 		MainCanvas = new MainCanvasView(this, picture);
 		clearButton = new ImageButton(this);
@@ -172,7 +172,7 @@ public class CanvasActivity extends Activity {
 		answerBox.setImeOptions(EditorInfo.IME_ACTION_DONE);
 		answerBox.setSingleLine();
 		answerBox.setTextSize(15);
-		answerBox.setBackgroundColor(Color.WHITE);
+		answerBox.setBackgroundColor(Color.rgb(222, 238, 82));
 		answerBoxParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
 		answerBoxParams.addRule(RelativeLayout.ABOVE, submitButtonId);
 		canvasLayout.addView(answerBox, answerBoxParams);		
@@ -201,17 +201,17 @@ public class CanvasActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent mIntent = new Intent(CanvasActivity.this, CanvasActivity.class);
+				Intent mIntent = new Intent(CanvasActivity.this, MoMooStart.class);
 				
-				String prevData = intent.getStringExtra(ProblemsFragment.PREV_DATA);
-				
-				mIntent.putExtra(ProblemsFragment.CURR_DATA, prevData);
-				mIntent.putExtra(ProblemsFragment.PREV_DATA, currentProblem);
-				mIntent.putExtra(ProblemsFragment.CURR_ASSIGN, mAssignment);		
-				MainCanvas.pause();
+//				String prevData = intent.getStringExtra(ProblemsFragment.PREV_DATA);
+//				
+//				mIntent.putExtra(ProblemsFragment.CURR_DATA, prevData);
+//				mIntent.putExtra(ProblemsFragment.PREV_DATA, currentProblem);
+//				mIntent.putExtra(ProblemsFragment.CURR_ASSIGN, mAssignment);		
+//				MainCanvas.pause();
 				
 				startActivity(mIntent);
-				finish();
+//				finish();
 
 			}
 		});
@@ -227,24 +227,25 @@ public class CanvasActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				Intent mIntent = new Intent(CanvasActivity.this, CanvasActivity.class);
-
-				String[] problems = mDaraCollector.getProblems(mAssignment);
-				Random rand = new Random();
-				int problemSize = problems.length;
-				
-				String selectedProblem = problems[rand.nextInt(problemSize)];
-				while(selectedProblem.equals(currentProblem)) {
-					selectedProblem = problems[rand.nextInt(problemSize)];
-				}
-
-				mIntent.putExtra(ProblemsFragment.CURR_DATA, selectedProblem);
-				mIntent.putExtra(ProblemsFragment.PREV_DATA, currentProblem);
-				mIntent.putExtra(ProblemsFragment.CURR_ASSIGN, mAssignment);		
-				MainCanvas.pause();
-				
+				Intent mIntent = new Intent(CanvasActivity.this, MoMooStart.class);
 				startActivity(mIntent);
-				finish();
+
+//				String[] problems = mDaraCollector.getProblems(mAssignment);
+//				Random rand = new Random();
+//				int problemSize = problems.length;
+//				
+//				String selectedProblem = problems[rand.nextInt(problemSize)];
+//				while(selectedProblem.equals(currentProblem)) {
+//					selectedProblem = problems[rand.nextInt(problemSize)];
+//				}
+//
+//				mIntent.putExtra(ProblemsFragment.CURR_DATA, selectedProblem);
+//				mIntent.putExtra(ProblemsFragment.PREV_DATA, currentProblem);
+//				mIntent.putExtra(ProblemsFragment.CURR_ASSIGN, mAssignment);		
+//				MainCanvas.pause();
+//				
+//				startActivity(mIntent);
+//				finish();
 				// TODO Auto-generated method stub
 //				startActivity(new Intent(CanvasActivity.this, MoMooStart.class));
 			}
