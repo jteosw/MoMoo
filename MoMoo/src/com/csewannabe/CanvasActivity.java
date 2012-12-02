@@ -1,22 +1,42 @@
 package com.csewannabe;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 
 public class CanvasActivity extends Activity {
+	MainCanvasView MainCanvas;
+	Button clearButton;
+	Button editButton;
+	Button submitButton;
+	EditText answerBox;
+	Bitmap picture;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_canvas);
+		
+		RelativeLayout canvasLayout = new RelativeLayout(this);
+		RelativeLayout.LayoutParams rLParams = 
+				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+		
+		// Find views
+		picture = BitmapFactory.decodeResource(getResources(), R.drawable.list_background);
+		
+		MainCanvas = new MainCanvasView(this, picture);
+		clearButton = new Button(this);
+		editButton = new Button(this);
+		submitButton = new Button(this);
+		answerBox = new EditText(this);
+		
+		
+		setContentView(R.layout.);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.activity_canvas, menu);
-		return true;
-	}
+	
 
 }
