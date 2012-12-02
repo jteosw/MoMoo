@@ -21,7 +21,6 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	SurfaceHolder sHolder;
 	Bitmap picture;
 	Paint painter;
-	int[] picDimensions;
 	private Thread mThread;
 	private Rect src;
 	private Rect dest;
@@ -32,14 +31,14 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	private Bitmap buffer;
 	private Canvas bufCanvas;
 	boolean doubleTouch;
-	private float prevX;
 	private float prevY;
 	private int newY;
-	private float newX;
 	private Rect blanksrc;
 	private Rect blankdest;
 	private Rect bufsrc;
 	private Rect bufdest;
+	private int picScale;
+	private int[] picCoords;
 	
 	public MainCanvasView(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
@@ -55,8 +54,11 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		painter.setStrokeWidth(2);
 		setOnTouchListener(this);
 		
+		picScale = 2;
+		picCoords = new int[] {200,100};
 		src = new Rect(0,0,picture.getWidth(),picture.getHeight());			//default size of pic
-		dest = new Rect(100,100, picture.getWidth() * 2 + 100, picture.getHeight() * 2 + 100); //choose the location, left.top.right.btm
+		dest = new Rect(picCoords[0],picCoords[1], picture.getWidth() * picScale + picCoords[0],
+							picture.getHeight() * picScale + picCoords[1]); //choose the location, left.top.right.btm
 		
 		
 		blankMap = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
@@ -128,7 +130,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
                 	newY = 1500;
                 	Toast.makeText(getContext(), "Reached End", Toast.LENGTH_SHORT).show();
                 }
-                dest.set(100, 100-newY, 100+picture.getWidth() * 2, 100-newY + picture.getHeight() * 2);
+                dest.set(picCoords[0], picCoords[1]-newY, picCoords[0]+picture.getWidth() * picScale, picCoords[1]-newY + picture.getHeight() * picScale);
                 blankdest.set(0,0-newY, blankMap.getWidth(), blankMap.getHeight() - newY);
                 bufdest.set(0,0-newY, buffer.getWidth(), buffer.getHeight() -  newY);
                 prevY = currY;
@@ -143,7 +145,6 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 				path.moveTo(event.getX(), event.getY()+newY);
 			//Sets the start scroll point
 				
-				prevX = event.getRawX();
 				prevY = event.getRawY();
 				break;
 		default:
