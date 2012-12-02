@@ -20,7 +20,7 @@ import android.widget.Toast;
 public class CanvasActivity extends Activity {
 	MainCanvasView MainCanvas;
 	ImageButton clearButton;
-	ImageButton editButton;
+	ImageButton undoButton;
 	ImageButton submitButton;
 	EditText answerBox;
 	Bitmap picture;
@@ -34,20 +34,21 @@ public class CanvasActivity extends Activity {
 				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
 		
 		// Find views
-		picture = BitmapFactory.decodeResource(getResources(), R.drawable.list_background);
+		picture = BitmapFactory.decodeResource(getResources(), R.drawable.green);
 		
 		MainCanvas = new MainCanvasView(this, picture);
 		clearButton = new ImageButton(this);
-		editButton = new ImageButton(this);
+		undoButton = new ImageButton(this);
 		submitButton = new ImageButton(this);
 		answerBox = new EditText(this);
-		
+		//MainCanvas.setLayoutParams(params);
 		// Add Main Canvas
-		canvasLayout.addView(MainCanvas, params);
-		params = 
-				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+		
+		canvasLayout.addView(MainCanvas);
+
+		params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		// Creates clear button
-		clearButton.setImageDrawable(Drawable.createFromPath("R.drawable.clear.png"));
+		clearButton.setImageResource(R.drawable.clear);
 		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		canvasLayout.addView(clearButton, params);
@@ -59,10 +60,25 @@ public class CanvasActivity extends Activity {
 			}
 		});
 		
+		// Creates undo button
+		undoButton.setImage
 		
-		setContentView(R.layout.canvas_activity);
+		
+		setContentView(canvasLayout, params);
 	}
-
 	
+	@Override
+	protected void onPause() {
+		// TODO Auto-generated method stub
+		super.onPause();
+		MainCanvas.pause();
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		MainCanvas.resume();
+	}
 
 }
