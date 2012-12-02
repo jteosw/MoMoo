@@ -1,5 +1,7 @@
-package com.csewannabe;
+package com.csewannabe.selection;
 
+import com.csewannabe.R;
+import com.csewannabe.R.layout;
 import com.csewannabe.selection.*;
 
 import android.graphics.Typeface;
