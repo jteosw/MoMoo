@@ -51,7 +51,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		sHolder = getHolder();
 		painter = new Paint(Paint.ANTI_ALIAS_FLAG);
 		painter.setColor(Color.BLACK);
-		painter.setStyle(Paint.Style.STROKE);
+		painter.setStyle(Paint.Style.FILL_AND_STROKE);
 		painter.setStrokeWidth(2);
 		setOnTouchListener(this);
 		
@@ -122,6 +122,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 					for(int p = 0; p < event.getPointerCount(); p++) {
 						path.lineTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h)+newY);
 						//bmCanvas.drawCircle(event.getHistoricalX(p, h), event.getHistoricalY(p, h), 3,painter);
+						painter.setColor(Color.BLACK);
 						bufCanvas.drawPath(path, painter);
 						
 						path.moveTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h)+newY);
@@ -136,8 +137,8 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
                 	newY = 0;
                 	Toast.makeText(getContext(), "Reached End", Toast.LENGTH_SHORT).show();
                 }
-                if (newY > 1500) {
-                	newY = 1500;
+                if (newY > 1150) {
+                	newY = 1150;
                 	Toast.makeText(getContext(), "Reached End", Toast.LENGTH_SHORT).show();
                 }
                 dest.set(picCoords[0], picCoords[1]-newY, picCoords[0]+picture.getWidth() * picScale, picCoords[1]-newY + picture.getHeight() * picScale);
@@ -150,6 +151,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		
 		case MotionEvent.ACTION_DOWN: 
 			//bmCanvas.drawCircle(event.getX(), event.getY(), 3,painter);
+			painter.setColor(Color.BLACK);
 			bmCanvas.drawPath(path, painter);
 
 				path = new Path();
@@ -164,6 +166,11 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		}
 		return true;
 	}
+	
+	public Bitmap getBitmap() {
+		bmCanvas.drawPath(path, painter);
+		return blankMap;
+	}
 		
 
 	public void run() {
@@ -174,13 +181,16 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 				drawingCanvas.drawBitmap(picture, src,dest, null);
 				drawingCanvas.drawBitmap(blankMap, blanksrc,blankdest, null);
 				drawingCanvas.drawBitmap(buffer,  bufsrc, bufdest, null);
+				for(float i = 0 ; i < 150; i++) {
+					painter.setColor(Color.LTGRAY);
+					drawingCanvas.drawCircle(680, 15+i*6, 4, painter);
+				}
+				painter.setColor(Color.BLACK);
+				drawingCanvas.drawCircle(680, 15+(int) ((double)newY * 18 / 23), 8, painter);
 				
 				
 				sHolder.unlockCanvasAndPost(drawingCanvas);
 			}
 		}
-	}
-
-
-	
+	}	
 }
