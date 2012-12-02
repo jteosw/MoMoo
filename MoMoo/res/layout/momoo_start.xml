@@ -11,7 +11,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text="Select Assignments..."
-        android:onClick="startAssignmentActivity"
+        android:onClick="startAssignment"
          />
     
     <Button

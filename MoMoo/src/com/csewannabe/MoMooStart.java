@@ -1,6 +1,5 @@
 package com.csewannabe;
 
-import com.csewannabe.selection.SelectionActivity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,7 +14,7 @@ public class MoMooStart extends Activity {
         setContentView(R.layout.momoo_start);
     }
    
-    public void startAssignmentActivity(View view) {
+    public void startAssignment(View view) {
     	startActivity(new Intent(this, SelectionActivity.class));
     }
     

@@ -1,4 +1,4 @@
-package com.csewannabe.selection;
+package com.csewannabe;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.csewannabe.R;
+import com.csewannabe.selection.AssignmentFragment;
+import com.csewannabe.selection.ProblemsFragment;
 
 public class SelectionActivity extends FragmentActivity {
 	
@@ -84,7 +86,7 @@ public class SelectionActivity extends FragmentActivity {
 
 		@Override
 		public int getCount() {
-			return 3;
+			return 2;
 		}
 		
 	}
