@@ -1,4 +1,7 @@
-package com.csewannabe;
+package com.csewannabe.selection;
+
+import com.csewannabe.R;
+import com.csewannabe.R.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;

@@ -1,19 +1,25 @@
 package com.csewannabe;
 
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import com.csewannabe.selection.DataCollector;
 
-public class ClassFragment extends Fragment {
+import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.widget.ArrayAdapter;
+
+public class ClassFragment extends ListFragment {
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		
+		//setListAdapter(new ArrayAdapter<T>(this, textViewResourceId, DataCollector.classes));
+		
 	}
 	
 	@Override
 	public void onStart() {
-		// TODO Auto-generated method stub
 		super.onStart();
+		
+		
 	}
 }
