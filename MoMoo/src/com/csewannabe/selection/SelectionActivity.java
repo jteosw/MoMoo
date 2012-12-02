@@ -3,8 +3,11 @@ package com.csewannabe.selection;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.view.Window;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 
 import com.csewannabe.R;
 
@@ -14,37 +17,29 @@ public class SelectionActivity extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		//getWindow().requestFeature(Window.FEATURE_NO_TITLE); //Gets rid of ugly title bar
 		
 		setContentView(R.layout.selection_activity);
-
 		
 		//Set up action bar tab navigation
 		final ActionBar mActionbar = getActionBar();
-		mActionbar.setDisplayShowHomeEnabled(false);
+		mActionbar.setDisplayShowHomeEnabled(false); //Gets rid of ugly Actionbar
 		mActionbar.setDisplayShowTitleEnabled(false);
 		mActionbar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		
 		ActionBar.TabListener mTabListener = new ActionBar.TabListener() {
 			@Override
 			public void onTabReselected(Tab tab,
-					android.app.FragmentTransaction ft) {
-				// TODO Auto-generated method stub
-				
+					android.app.FragmentTransaction ft) {				
 			}
 
 			@Override
 			public void onTabSelected(Tab tab,
-					android.app.FragmentTransaction ft) {
-				// TODO Auto-generated method stub
-				
+					android.app.FragmentTransaction ft) {				
 			}
 
 			@Override
 			public void onTabUnselected(Tab tab,
-					android.app.FragmentTransaction ft) {
-				// TODO Auto-generated method stub
-				
+					android.app.FragmentTransaction ft) {		
 			}
 			
 		};
@@ -58,11 +53,42 @@ public class SelectionActivity extends FragmentActivity {
 		mActionbar.addTab(assignmentTab);
 		mActionbar.addTab(questionTab);
 		
+		SelectionPagerAdapter mSelectionAdapter = new SelectionPagerAdapter(getSupportFragmentManager());
+		ViewPager mViewer = (ViewPager) findViewById(R.id.selection_pager);
+		mViewer.setAdapter(mSelectionAdapter);
+		
+		/*
 		//Set up first class fragment
 		ClassFragment mClassFragment = new ClassFragment();
 		getSupportFragmentManager().beginTransaction().add(R.id.fragment_holder, mClassFragment).commit();
+	*/
 	}
 	
+	public static class SelectionPagerAdapter extends FragmentPagerAdapter {
 
+		public SelectionPagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			switch(position) {
+				case 0:
+					return new ClassFragment();
+				case 1:
+					return new ClassFragment();
+				case 2:
+					return new ClassFragment();
+				default:
+					return null;
+			}
+		}
+
+		@Override
+		public int getCount() {
+			return 3;
+		}
+		
+	}
 
 }
