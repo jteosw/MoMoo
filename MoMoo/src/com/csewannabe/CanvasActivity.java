@@ -5,17 +5,12 @@ package com.csewannabe;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 public class CanvasActivity extends Activity {
 	MainCanvasView MainCanvas;
@@ -41,14 +36,15 @@ public class CanvasActivity extends Activity {
 		undoButton = new ImageButton(this);
 		submitButton = new ImageButton(this);
 		answerBox = new EditText(this);
-		//MainCanvas.setLayoutParams(params);
 		// Add Main Canvas
 		
-		canvasLayout.addView(MainCanvas);
+		canvasLayout.addView(MainCanvas, params);
 
 		params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		// Creates clear button
 		clearButton.setImageResource(R.drawable.clear);
+		int clearButtonId = 1;
+		clearButton.setId(clearButtonId);
 		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
 		canvasLayout.addView(clearButton, params);
@@ -60,9 +56,20 @@ public class CanvasActivity extends Activity {
 			}
 		});
 		
-		// Creates undo button
-		
-		
+		// Creates undo button		
+		params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+		undoButton.setImageResource(R.drawable.undo);
+		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//		params.addRule(RelativeLayout.RIGHT_OF, clearButtonId);
+		canvasLayout.addView(undoButton, params);
+		clearButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				MainCanvas.undo();
+			}
+		});
 		
 		setContentView(canvasLayout, params);
 	}
