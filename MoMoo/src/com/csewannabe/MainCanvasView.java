@@ -44,6 +44,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	private Rect blksrc;
 	private Rect blkdest;
 	private Canvas blackCanvas;
+	private boolean multiTouch;
 	
 	public MainCanvasView(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
@@ -128,21 +129,31 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 			int numPointers = event.getPointerCount();
 
 			if (numPointers != 2) {
+				if (numPointers > 2) {
+					multiTouch = true;
+					//Log.d("TOUCHED", "multiTouchTrue");
+					
+				}
 				for (int h = 0; h < historySize; h++) {
 					for(int p = 0; p < event.getPointerCount(); p++) {
 						path.lineTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h)+newY);
 						//bmCanvas.drawCircle(event.getHistoricalX(p, h), event.getHistoricalY(p, h), 3,painter);
-						painter.setColor(Color.BLACK);
+						if (doubleTouch)
+							path = new Path();
 						bufCanvas.drawPath(path, painter);
 						
 						path.moveTo(event.getHistoricalX(p, h),event.getHistoricalY(p,h)+newY);
 				    }
 				}
-			} else 	if (numPointers ==2) {
-				Log.d("TOUCHED", "Am scrolling!");
+			}  else if (numPointers ==2) {
+				doubleTouch = true;
+				//Log.d("TOUCHED", "Am scrolling!");
                 float currY = event.getRawY();
                 float deltaY = -(currY - prevY);
-                newY += deltaY;
+                if (!multiTouch) {
+                	newY += deltaY;
+                	//Log.d("TOUCHED", "But i dont care!");
+                }
                 if (newY < -100) {
                 	newY = -100;
                 	Toast.makeText(getContext(), "Reached End", Toast.LENGTH_SHORT).show();
@@ -163,6 +174,8 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		
 		case MotionEvent.ACTION_DOWN: 
 			//bmCanvas.drawCircle(event.getX(), event.getY(), 3,painter);
+			doubleTouch = false;
+			multiTouch = false;
 			painter.setColor(Color.BLACK);
 			bmCanvas.drawPath(path, painter);
 
