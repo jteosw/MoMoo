@@ -7,10 +7,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
+import android.widget.ImageView.ScaleType;
 
 public class CanvasActivity extends Activity {
 	MainCanvasView MainCanvas;
@@ -40,14 +42,17 @@ public class CanvasActivity extends Activity {
 		
 		canvasLayout.addView(MainCanvas, params);
 
-		params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+		RelativeLayout.LayoutParams clearParams = 
+				new RelativeLayout.LayoutParams(100, 125);
 		// Creates clear button
 		clearButton.setImageResource(R.drawable.clear);
 		int clearButtonId = 1;
 		clearButton.setId(clearButtonId);
-		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-		params.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-		canvasLayout.addView(clearButton, params);
+		clearButton.setScaleType(ScaleType.FIT_CENTER);
+		clearParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		clearParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+		canvasLayout.addView(clearButton, clearParams);
+		
 		clearButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -57,12 +62,17 @@ public class CanvasActivity extends Activity {
 		});
 		
 		// Creates undo button		
-		params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+		RelativeLayout.LayoutParams undoParams = 
+				new RelativeLayout.LayoutParams(100, 125);
 		undoButton.setImageResource(R.drawable.undo);
-		params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-//		params.addRule(RelativeLayout.RIGHT_OF, clearButtonId);
-		canvasLayout.addView(undoButton, params);
-		clearButton.setOnClickListener(new OnClickListener() {
+		int undoButtonId = 2;
+		undoButton.setId(undoButtonId);
+		undoButton.setScaleType(ScaleType.FIT_CENTER);
+		undoParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		undoParams.addRule(RelativeLayout.RIGHT_OF, clearButtonId);
+		canvasLayout.addView(undoButton, undoParams);
+		
+		undoButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -70,6 +80,25 @@ public class CanvasActivity extends Activity {
 				MainCanvas.undo();
 			}
 		});
+		
+		// Creates submit button
+		RelativeLayout.LayoutParams submitParams = 
+				new RelativeLayout.LayoutParams(100, 125);
+		submitButton.setImageResource(R.drawable.send);
+		submitButton.setScaleType(ScaleType.FIT_CENTER);
+		submitParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+		submitParams.addRule(RelativeLayout.RIGHT_OF, undoButtonId);
+		canvasLayout.addView(submitButton, submitParams);
+		
+		submitButton.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
 		
 		setContentView(canvasLayout, params);
 	}
