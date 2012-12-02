@@ -10,9 +10,6 @@ public class DataCollector {
 
 		Map<String, List<String>> homeworkDataset;
 		Map<String, Integer[]> scoreMap;
-		
-		public String[] assignments  = {"assignment 1A", "assignment 1B", "assignment 2", "assignment 3", "bonus AX"};
-		public String[] problems = {"problem 1", "problem 2", "problem 3", "problem 4", "problem 5", "problem 6", "problem 7"};
 	
 		public DataCollector() {
 			homeworkDataset = new TreeMap<String, List<String>>();

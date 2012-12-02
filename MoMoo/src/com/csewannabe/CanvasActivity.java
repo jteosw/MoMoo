@@ -2,6 +2,8 @@ package com.csewannabe;
 
 
 
+import com.csewannabe.selection.ProblemsFragment;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -36,6 +38,8 @@ public class CanvasActivity extends Activity {
 	Button nextButton;
 	EditText answerBox;
 	Bitmap picture;
+	Intent intent;
+	TextView title;
 	
 	public static final int clearButtonId = 1;
 	public static final int undoButtonId = 2;
@@ -61,6 +65,7 @@ public class CanvasActivity extends Activity {
 		answerBox = new EditText(this);
 		prevButton = new Button(this);
 		nextButton = new Button(this);
+		title = new TextView(this);
 		ImageView header = new ImageView(this);
 		ImageView footer = new ImageView(this);
 		// Add Main Canvas
@@ -72,9 +77,11 @@ public class CanvasActivity extends Activity {
 		RelativeLayout.LayoutParams headerParams = 
 				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, 150);
 		header.setImageResource(R.drawable.headernfooter);
-		params.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		headerParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
 		header.setScaleType(ScaleType.FIT_XY);
 		canvasLayout.addView(header, headerParams);
+		intent = getIntent();
+		
 		
 		footer.setImageResource(R.drawable.headernfooter);
 		RelativeLayout.LayoutParams footerParams = 
@@ -166,7 +173,7 @@ public class CanvasActivity extends Activity {
 			}
 		});
 		
-		// Creates prev and next Buttons
+		// Creates prev Button
 		RelativeLayout.LayoutParams prevParams = 
 				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		prevButton.setText("PREV");
@@ -178,9 +185,14 @@ public class CanvasActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				startActivity(new Intent(CanvasActivity.this, MoMooStart.class));
+//				intent = getIntent();
+				// if PREV_DATA is null, doesn't exist, button shouldn't work
+//				String position = intent.getStringExtra(ProblemsFragment.PREV_DATA);
+//				startActivity(new Intent(CanvasActivity.this, );
 			}
 		});
+		
+		// Creates next Button
 		RelativeLayout.LayoutParams nextParams = 
 				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 		nextButton.setText("NEXT");
@@ -191,11 +203,22 @@ public class CanvasActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
+				title.setText(text)
 				// TODO Auto-generated method stub
 //				startActivity(new Intent(CanvasActivity.this, MoMooStart.class));
 			}
 		});
 		
+		
+		// Create title
+		RelativeLayout.LayoutParams titleParams = 
+				new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+		titleParams.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+		titleParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+		title.setText(intent.getStringExtra(ProblemsFragment.CURR_DATA));
+		title.setTextSize(30);
+		title.setTextColor(Color.DKGRAY);
+		canvasLayout.addView(title, titleParams);
 		
 		setContentView(canvasLayout, params);
 	}
