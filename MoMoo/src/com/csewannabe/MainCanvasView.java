@@ -39,6 +39,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	private Rect bufdest;
 	private int picScale;
 	private int[] picCoords;
+	private boolean undo;
 	
 	public MainCanvasView(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
@@ -89,7 +90,9 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 	}
 	
 	public void undo() {
-		path =  new Path();
+		path = new Path();
+		buffer = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888);
+		bufCanvas = new Canvas(buffer);
 	}
 	
 	public void clear() {
@@ -148,6 +151,7 @@ public class MainCanvasView extends SurfaceView implements OnTouchListener, Runn
 		case MotionEvent.ACTION_DOWN: 
 			//bmCanvas.drawCircle(event.getX(), event.getY(), 3,painter);
 			bmCanvas.drawPath(path, painter);
+
 				path = new Path();
 				path.moveTo(event.getX(), event.getY()+newY);
 			//Sets the start scroll point
