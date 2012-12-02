@@ -19,7 +19,7 @@ public class ClassFragment extends ListFragment {
 		super.onCreate(savedInstanceState);
 		
 		//Sets up a custom ListAdapter 
-		setListAdapter(new CustomArrayAdapter<String>(getActivity(), R.id.list_item_textview, DataCollector.classes));
+		setListAdapter(new CustomArrayAdapter<String>(getActivity(), R.layout.list_item, R.id.list_item_textview, DataCollector.classes));
 		
 	}
 	
